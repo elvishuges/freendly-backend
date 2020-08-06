@@ -1,4 +1,5 @@
-const app = require('../src/app');
+const {http} = require('../src/app');
+
 const port = normalizaPort(process.env.PORT || '3000');
 
 function normalizaPort(val) {
@@ -12,6 +13,7 @@ function normalizaPort(val) {
     return false;
 }
 
-app.listen(port, function () {
+http.listen(port, function () {
     console.log(`app listening on port ${port}`)
 })
+
