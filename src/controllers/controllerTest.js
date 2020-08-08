@@ -1,11 +1,12 @@
 const io = require('../../src/app');
 
-exports.test = (req, res, next) => {
-    //io.emit("customEmit", "data")
-    res.status(201).send('Requisição recebida com sucesso!');
-};
 
 exports.root = (req, res, next) => {
     //io.emit("customEmit", "data")
-    res.status(201).send('Requisição recebida com sucesso!');
+    res.status(201).send('Server running and ready to use!');
+};
+
+exports.auth = (req, res, next) => {
+    //io.emit("customEmit", "data")
+    res.status(201).send('User auth');
 };

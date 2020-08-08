@@ -1,17 +1,18 @@
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
-//const io = require('socket.io')(http)
-
-const index = require('./routes/index');
-var cors = require('cors')
+const routes = require('./routes')
 const bodyparser = require('body-parser')
+var cors = require('cors')
+
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json())
 app.use(cors())
 
-app.use('/', index);
+
+Object.values( routes ).forEach( Route => app.use(Route) )
+
 
 
 module.exports = {http};
