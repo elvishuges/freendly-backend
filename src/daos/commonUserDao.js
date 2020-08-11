@@ -1,40 +1,63 @@
 var con = require('../mysql/conectionMysql');
 var mysql = require('mysql');
 
-exports.login = function (email, password) {
+exports.login = function (email) {
 
     return new Promise(function (fulfill, reject) {
         console.log("User email: " + email );
-        console.log("User senha: " + password);
 
-        var sql = "SELECT id,username,email FROM users WHERE email = ? and password = ? ";
-        var inserts = [email, password];
+        var sql = "SELECT * FROM usuarios WHERE email = ?";
+        var inserts = [email];
         sql = mysql.format(sql, inserts);
         con.query(sql, function (err, result) {
-            console.log('#query result#',result);
-            if (result.length > 0) {
-				return fulfill(result);
-			} else {
-				return fulfill("false");
-			}
+            console.log('#DAO QUERY RESULT#',result);
+            fulfill(result);
         });
     })
 }
 
 
-exports.register = function (idMedico, idPaciente) {
+exports.register = function (nome, email, nick, senha) {
 
     return new Promise(function (fulfill, reject) {
-        console.log("Medico: " + idMedico);
-        console.log("Paciente: " + idPaciente);
+        console.log("Nome: " + nome);
+        console.log("Email: " + email);
+        console.log("Nick: " + nick);
+        console.log("Senha: " + senha);
 
-        var sql = "insert into authors (idMedico, idPaciente, status) values ('" + idMedico +
-            "','" + idPaciente + "','pendente')";
+        var usuario = {
+            "nome":nome,
+            "email":email,
+            "nick": nick,
+            "senha":senha
+        }
+
+        var sql = "insert into usuarios set ?";
+        var inserts = [usuario];
+        sql = mysql.format(sql, inserts);
+
         con.query(sql, function (err, result) {
-            console.log("ERRO2: " + err);
-            fulfill("true");
+            if(err) throw reject
+            fulfill(result);
         });
     })
 }
 
+
+
+exports.findUserByEmail = function (email) {
+
+    return new Promise(function (fulfill, reject) {
+        console.log("Nome: " + email);
+
+        var sql = "SELECT * FROM usuarios WHERE email = ? ";
+        var inserts = [email];
+        sql = mysql.format(sql, inserts);
+        con.query(sql, function (err, result) {
+            console.log("findUser error: " + err);
+            console.log("findUser result: " + result[0]);
+            fulfill(result[0]);
+        });
+    })
+}
 

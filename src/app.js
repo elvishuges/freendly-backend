@@ -11,8 +11,6 @@ app.use(bodyparser.json())
 app.use(cors())
 
 
-Object.values( routes ).forEach( Route => app.use(Route) )
-
-
+Object.values( routes ).forEach( Route => app.use(Route))
 
 module.exports = {http};
