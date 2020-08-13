@@ -1,13 +1,20 @@
 var con = require('../mysql/conectionMysql');
 var mysql = require('mysql');
 
-exports.cadastrarProjeto = function (idEmpresa,nome,descricao,salario,encontrosSemanais,linguagem,ativo,
-    dirI) {
+exports.cadastrarProjeto = function (idEmpresa,nome,descricao,salario,
+    encontrosSemanais,linguagem,ativo,dirImagem) {
 
     return new Promise(function (fulfill, reject) {
 
         var projeto = {
-
+            idEmpresa:idEmpresa,
+            nome:nome,
+            descricao:descricao,
+            salario:salario,
+            encontrosSemanais:encontrosSemanais,
+            linguagem:linguagem,
+            ativo:ativo,
+            dirImagem:dirImagem
         }
 
         var sql = "insert into projetos set ?";

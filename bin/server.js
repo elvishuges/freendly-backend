@@ -1,8 +1,10 @@
 require("dotenv-safe").config();
 //var jwt = require('jsonwebtoken');
 const {http} = require('../src/app');
-var sockets = require('./../src/socket')
+//const sockets = require('./../src/socket')
 const port = normalizaPort(process.env.PORT || '3000');
+
+// const io = require('socket.io')(http)
 
 function normalizaPort(val) {
     const port = parseInt(val, 10);
@@ -19,5 +21,6 @@ http.listen(port, function () {
     console.log(`app listening on port ${port}`)
 })
 
-sockets.init(http);
+
+//sockets.init();
 

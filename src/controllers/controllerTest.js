@@ -1,4 +1,4 @@
-const io = require('../../src/app');
+var io = require('./../socket');
 
 exports.root = (req, res, next) => {
     //io.emit("customEmit", "data")
@@ -11,5 +11,12 @@ exports.auth = (req, res, next) => {
 };
 
 exports.sockets = (req, res, next) => {
+
     res.status(201).send('sockets');
+    io.emit('userlist', "Oi Evis conseguimos !!!!");
 };
+
+
+
+
+

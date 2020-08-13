@@ -34,11 +34,12 @@ exports.cadastrarProjeto = async (req, res, next) => {
             })
         }
     });
+
     var dirImagem = ""
     var idEmpresa = 1
 
-    var result = await registeredUserDao.cadastrarProjeto(idEmpresa,dados.nome, dados.descricao,dados.salario,
-        dados.encontrosSemanias,dados.linguagens,dados.ativo,dirImagem)
+    var result = await registeredUserDao.cadastrarProjeto(idEmpresa,dados.nome, dados.descricao,
+        dados.salario,dados.encontrosSemanias,dados.linguagens,dados.ativo,dirImagem)
     console.log("RESULTADO: " + result)
     if (result != null) {
         res.status(200).send({
