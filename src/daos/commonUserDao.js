@@ -20,10 +20,6 @@ exports.login = function (email) {
 exports.register = function (nome, email, nick, senha) {
 
     return new Promise(function (fulfill, reject) {
-        console.log("Nome: " + nome);
-        console.log("Email: " + email);
-        console.log("Nick: " + nick);
-        console.log("Senha: " + senha);
 
         var usuario = {
             "nome":nome,
@@ -31,6 +27,8 @@ exports.register = function (nome, email, nick, senha) {
             "nick": nick,
             "senha":senha
         }
+
+        console.log("#USER REGISTR#",usuario)
 
         var sql = "insert into usuarios set ?";
         var inserts = [usuario];
@@ -55,7 +53,7 @@ exports.findUserByEmail = function (email) {
         sql = mysql.format(sql, inserts);
         con.query(sql, function (err, result) {
             console.log("findUser error: " + err);
-            console.log("findUser result: " + result[0]);
+            console.log("findUser result: " + result);
             fulfill(result[0]);
         });
     })

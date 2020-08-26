@@ -8,14 +8,14 @@ io.on('connection', function (socket) {
 
     socket.on('onProjectPage', function  (nick) { // escuta do usuario
               users.push(nick);
-              socket.nick=nick;
-              idsnicks[nick]=socket.id;
+              socket.nick = nick;
+              idsnicks[nick] = socket.id;
               io.emit('userlist', users); // emite para quem estiver escutando "userlist"
      })
 
     socket.on('chat', function  (data) { // escuta do usuario
             console.log('CHAT DATA',data);
-            if (io.sockets.connected[idsnicks[data.usr]]!==undefined) {
+            if (io.sockets.connected[idsnicks[data.usr]] !== undefined) {
                io.sockets.connected[idsnicks[data.usr]].emit('chatChannel', {msg:data.msg, usr:socket.nick});
            }
         })
