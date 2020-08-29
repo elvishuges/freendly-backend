@@ -16,7 +16,7 @@ io.on('connection', function (socket) {
     socket.on('chat', function  (data) { // escuta do usuario
             console.log('CHAT DATA',data);
             if (io.sockets.connected[idsnicks[data.usr]] !== undefined) {
-               io.sockets.connected[idsnicks[data.usr]].emit('chatChannel', {msg:data.msg, usr:socket.nick});
+               io.sockets.connected[idsnicks[data.usr]].emit('chatChannel', {text:data.text, usr:socket.nick});
            }
         })
 
