@@ -10,12 +10,11 @@ exports.login = function (email) {
         var inserts = [email];
         sql = mysql.format(sql, inserts);
         con.query(sql, function (err, result) {
-            console.log('#DAO QUERY RESULT#',result);
+            if(err) throw err
             fulfill(result);
         });
     })
 }
-
 
 exports.register = function (nome, email, nick, senha) {
 
@@ -35,13 +34,11 @@ exports.register = function (nome, email, nick, senha) {
         sql = mysql.format(sql, inserts);
 
         con.query(sql, function (err, result) {
-            if(err) throw reject
+            if(err) throw err
             fulfill(result);
         });
     })
 }
-
-
 
 exports.findUserByEmail = function (email) {
 
@@ -52,10 +49,32 @@ exports.findUserByEmail = function (email) {
         var inserts = [email];
         sql = mysql.format(sql, inserts);
         con.query(sql, function (err, result) {
-            console.log("findUser error: " + err);
-            console.log("findUser result: " + result);
+            if(err) throw err
             fulfill(result[0]);
         });
     })
 }
 
+exports.createInitialCompany = function (nome, descricao, idUsuario, dirImagem) {
+
+    return new Promise(function (fulfill, reject) {
+
+        var empresa = {
+            "nome":nome,
+            "descricao":descricao,
+            "id_usuario": idUsuario,
+            "dirImagem":dirImagem
+        }
+
+        console.log("#CREATE COMPANY#",empresa)
+
+        var sql = "insert into empresas set ?";
+        var inserts = [empresa];
+        sql = mysql.format(sql, inserts);
+
+        con.query(sql, function (err, result) {
+            if(err) throw err
+            fulfill(result);
+        });
+    })
+}

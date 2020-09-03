@@ -1,9 +1,9 @@
 var router = require('express').Router();
 var controllerRegisteredUser = require('../controllers/controllerRegisteredUser');
-// Require controller module
+var auth = require('./../middleware/auth')
 
 
-router.post('/cadastrarProjeto',controllerRegisteredUser.cadastrarProjeto)
-
+router.post('/cadastrarProjeto',auth,controllerRegisteredUser.cadastrarProjeto)
+router.get('/user/:id/empresa',auth,controllerRegisteredUser.getEmpresa)
 
 module.exports = router;

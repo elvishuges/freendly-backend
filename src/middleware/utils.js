@@ -1,13 +1,25 @@
 require("dotenv-safe").config();
 var jwt = require('jsonwebtoken');
 
-function validateToken(token) {
+exports.validateToken = function (token) {
+
     jwt.verify(token, process.env.SECRET,function(err, token) {
-
-        if (err) {  throw err}
-
-        return token
+        if (err) {
+           console.log("Erro verify token");
+           throw err
+          }
+          return token
       });
 }
 
-module.exports = validateToken
+
+exports.decodeToken = function (token) {
+    console.log("EM decoded ...");
+    return jwt.verify(token, process.env.SECRET, function(err, decoded) {
+        if (err) return res.status(203).json({ auth: false, message: 'Failed to authenticate token.' });
+        console.log("DECODED UTILS",decoded);
+        return decoded
+      })
+};
+
+
