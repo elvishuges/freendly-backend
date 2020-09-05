@@ -1,7 +1,7 @@
 var con = require('../mysql/conectionMysql');
 var mysql = require('mysql');
 
-exports.cadastrarProjeto = function (idEmpresa,nome,descricao,salario,
+exports.createProject = function (idEmpresa,nome,descricao,salario,
     encontrosSemanais,linguagem,ativo,dirImagem) {
 
     return new Promise(function (fulfill, reject) {
@@ -11,7 +11,7 @@ exports.cadastrarProjeto = function (idEmpresa,nome,descricao,salario,
             "nome":nome,
             "descricao":descricao,
             "encontrosSemanais":encontrosSemanais,
-            "linguagens":linguagem,
+            "linguagens":"java",
             "ativo":ativo,
             "dirImagem":dirImagem
         }
@@ -43,12 +43,26 @@ exports.cadastrarProjeto = function (idEmpresa,nome,descricao,salario,
 //     })
 // }
 
-exports.getCompanyByUserId = function (userID) {
+exports.getUserCompany = function (userID) {
 
     return new Promise(function (fulfill, reject) {
 
-        var sql = "select descricao,dirImagem,nome from empresas where id_usuario = ?";
+        var sql = "select * from empresas where id_usuario = ?";
         var inserts = [userID];
+        sql = mysql.format(sql, inserts);
+        con.query(sql, function (err, result) {
+            if(err) throw err
+            fulfill(result[0]);
+        });
+    })
+}
+
+exports.getUserAmountProjects = function (companyId) {
+
+    return new Promise(function (fulfill, reject) {
+
+        var sql = "select count(*) from projetos where id_empresa = ?";
+        var inserts = [companyId];
         sql = mysql.format(sql, inserts);
         con.query(sql, function (err, result) {
             if(err) throw err

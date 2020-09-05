@@ -6,7 +6,10 @@ module.exports = function(req, res, next) {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   console.log('TOKEN',token);
   //if no token found, return response (without going to the next middelware)
-  if (!token) return res.status(203).send("Access denied. No token provided.");
+  if (!token) {
+     console.log("##TOKEN N ENCONTRADO");
+     return res.status(203).send("Access denied. No token provided.");
+  }
   jwt.verify(token, process.env.SECRET, function(err, decoded) {
     if (err) return res.status(203).json({ auth: false, message: 'Failed to authenticate token.' });
     console.log("DECODED",decoded);

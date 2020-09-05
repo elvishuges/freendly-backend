@@ -59,17 +59,17 @@ exports.createInitialCompany = function (nome, descricao, idUsuario, dirImagem) 
 
     return new Promise(function (fulfill, reject) {
 
-        var empresa = {
+        var company = {
             "nome":nome,
             "descricao":descricao,
             "id_usuario": idUsuario,
             "dirImagem":dirImagem
         }
 
-        console.log("#CREATE COMPANY#",empresa)
+        console.log("#CREATE COMPANY#",company)
 
         var sql = "insert into empresas set ?";
-        var inserts = [empresa];
+        var inserts = [company];
         sql = mysql.format(sql, inserts);
 
         con.query(sql, function (err, result) {

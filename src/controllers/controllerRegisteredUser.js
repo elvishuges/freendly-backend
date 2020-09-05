@@ -1,50 +1,69 @@
-const registeredUserDao = require('../daos/registeredUserDao.js');
 const multer = require('multer')
-const { decodeToken }  = require('./../middleware/utils')
-const upload = require("../multer/storage");
 require("dotenv-safe").config();
-var jwt = require('jsonwebtoken');
 
-exports.cadastrarProjeto = async (req, res, next) => {
-    var dados = req.body
+const registeredUserDao = require('../daos/registeredUserDao.js');
 
-    await upload(req, res, function (err) {
-        if(dados.file == null || dados.file == undefined || dados.file == ""){
+const { decodeToken }  = require('./../middleware/utils')
+const { arrayToString }  = require('./../helpers')
+const upload = require("../multer/storage");
+const DIR = './public/';
+
+
+exports.createProject = async (req, res, next) => {
+    let dados = req.body
+    console.log("#################REQ##############",req.query.infoProject);
+
+    upload(req, res, function (err) {
+        console.log('UPLOADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',req.file);// so aqui
+        if(req.file == null || req.file == undefined || req.file == ""){
+            console.log("ERRORRRRRRRRRR");
             res.status(209).send({
                 msg: 'No image founded'
             })
         }
     });
 
-    var dirImagem = ""
-    var idEmpresa = 1
-
-    var result = await registeredUserDao.cadastrarProjeto(idEmpresa,dados.nome, dados.descricao,
-                 dados.salario,dados.encontrosSemanias,dados.linguagens,dados.ativo,dirImagem)
-    console.log("RESULTADO: " + result)
-    if (result != null) {
-        res.status(200).send({
-            msg: result
-        })
-    }
 };
 
-exports.getEmpresa = async (req, res, next) => {
+exports.getUserCompany= async (req, res, next) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
-
+    console.log("#TOKEN GTUSERCOMPN#",token);
     try {
         const decoded = decodeToken(token)
-        var company = await registeredUserDao.getCompanyByUserId(decoded.usuario.id)
+        var company = await registeredUserDao.getUserCompany(decoded.user.id)
         console.log("RESULTADO: " + company)
         if (company != null) {
             res.status(200).send({
                 msg: company
             })
         }
-
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).send({
             error:error
      })
     }
 };
+
+
+exports.getUserAmountProjects = async (req, res, next) => {
+    const token = req.headers["x-access-token"] || req.headers["authorization"];
+    console.log("TOKENNNNNNNNNNN",token);
+    try {
+        const decoded = decodeToken(token)
+        var company = await registeredUserDao.getUserCompany(decoded.user.id)
+        var projects = await registeredUserDao.getUserAmountProjects(company.id)
+        var numProjects = projects[0]["count(*)"]
+        console.log("RESULTADO: " + projects)
+        if (projects != null) {
+            res.status(200).send({
+                msg: numProjects
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).send({
+            error:error
+     })
+    }
+}

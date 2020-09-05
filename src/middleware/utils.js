@@ -14,7 +14,6 @@ exports.validateToken = function (token) {
 
 
 exports.decodeToken = function (token) {
-    console.log("EM decoded ...");
     return jwt.verify(token, process.env.SECRET, function(err, decoded) {
         if (err) return res.status(203).json({ auth: false, message: 'Failed to authenticate token.' });
         console.log("DECODED UTILS",decoded);
