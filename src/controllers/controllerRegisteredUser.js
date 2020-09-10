@@ -1,28 +1,32 @@
-const multer = require('multer')
 require("dotenv-safe").config();
-
 const registeredUserDao = require('../daos/registeredUserDao.js');
-
 const { decodeToken }  = require('./../middleware/utils')
 const { arrayToString }  = require('./../helpers')
-const upload = require("../multer/storage");
-const DIR = './public/';
+
 
 
 exports.createProject = async (req, res, next) => {
-    let dados = req.body
-    console.log("#################REQ##############",req.query.infoProject);
-
-    upload(req, res, function (err) {
-        console.log('UPLOADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',req.file);// so aqui
-        if(req.file == null || req.file == undefined || req.file == ""){
-            console.log("ERRORRRRRRRRRR");
-            res.status(209).send({
-                msg: 'No image founded'
+        if (!req.file) {
+            console.log("No file received");
+            res.status(401).send({
+                    msg: 'No image founded'
             })
         }
-    });
-
+       const token = req.headers["x-access-token"] || req.headers["authorization"];
+       const decoded = decodeToken(token)
+       var company = await registeredUserDao.getUserCompany(decoded.user.id)
+       var linguagens = arrayToString(req.query.linguagens)
+       let dirImagem = req.file.destination + req.file.filename
+       var query = await registeredUserDao.createProject(company.id,req.query.nome,
+                   req.query.descricao,req.query.salario,req.query.encontrosSemanais,linguagens,req.query.ativo,dirImagem)
+       var projects = await registeredUserDao.getUserAmountProjects(company.id)
+       var numProjects = projects[0]["count(*)"]
+       console.log("RESULTADO: " + projects)
+       if (company != null) {
+            res.status(200).send({
+                msg: numProjects
+            })
+        }
 };
 
 exports.getUserCompany= async (req, res, next) => {

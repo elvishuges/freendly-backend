@@ -5,14 +5,15 @@ exports.createProject = function (idEmpresa,nome,descricao,salario,
     encontrosSemanais,linguagem,ativo,dirImagem) {
 
     return new Promise(function (fulfill, reject) {
-
+        let ativoChecked = (ativo === "true") ? true : false;
         var projeto = {
             "id_empresa":idEmpresa,
             "nome":nome,
+            "salario":salario,
             "descricao":descricao,
             "encontrosSemanais":encontrosSemanais,
-            "linguagens":"java",
-            "ativo":ativo,
+            "linguagens":linguagem,
+            "ativo":ativoChecked,
             "dirImagem":dirImagem
         }
         console.log("PROJETOOOOOO",projeto);

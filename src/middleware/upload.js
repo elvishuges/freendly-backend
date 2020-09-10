@@ -1,12 +1,9 @@
 const path= require("path");
-//add multer to manage multipart form
 const multer= require("multer");
+const DIR = './uploads/';
 
-//storage management for the file
-//that will be uploaded
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      console.log('DESTINATION');
       cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {

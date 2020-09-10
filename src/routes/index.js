@@ -4,4 +4,4 @@ const registeredUserRoutes = require('./registeredUserRoutes')
 const testRoutes = require('./testRoutes')
 
 
-module.exports = { adminRoutes, commonUserRoutes, registeredUserRoutes,testRoutes }
+module.exports = { testRoutes,adminRoutes, commonUserRoutes, registeredUserRoutes }
