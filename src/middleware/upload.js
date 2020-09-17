@@ -1,17 +1,16 @@
 const path= require("path");
 const multer= require("multer");
-const DIR = './uploads/';
+const DIR = 'src/public/images/';
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/')
+      cb(null, DIR)
     },
     filename: function (req, file, cb) {
-      // cb(null, file.originalname)
+      //cb(null, file.originalname)
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
   })
-
 
  //management of the storage and the file that will be uploaded
  //.single expects the name of the file input field

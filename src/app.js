@@ -13,6 +13,8 @@ io.attach(http);
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json())
 app.use(cors())
+//setting middleware
+app.use('/src/public/images/', express.static(__dirname + '/public/images'));
 
 Object.values( routes ).forEach( Route => app.use(Route))
 app.use(errors());

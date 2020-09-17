@@ -7,6 +7,7 @@ const upload = require("../middleware/upload");
 
 router.post('/createProject',upload,controllerRegisteredUser.createProject)
 router.get('/user/company',auth,controllerRegisteredUser.getUserCompany)
-router.get('/user/projects',auth,controllerRegisteredUser.getUserAmountProjects)
+router.get('/user/amountProjects',auth,controllerRegisteredUser.getUserAmountProjects)
+router.get('/user/projects',auth,controllerRegisteredUser.getUserProjects)
 
 module.exports = router;

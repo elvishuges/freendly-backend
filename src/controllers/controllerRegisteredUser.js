@@ -21,7 +21,7 @@ exports.createProject = async (req, res, next) => {
                    req.query.descricao,req.query.salario,req.query.encontrosSemanais,linguagens,req.query.ativo,dirImagem)
        var projects = await registeredUserDao.getUserAmountProjects(company.id)
        var numProjects = projects[0]["count(*)"]
-       console.log("RESULTADO: " + projects)
+       console.log("RESULTADO:" + projects)
        if (company != null) {
             res.status(200).send({
                 msg: numProjects
@@ -51,6 +51,7 @@ exports.getUserCompany= async (req, res, next) => {
 
 
 exports.getUserAmountProjects = async (req, res, next) => {
+
     const token = req.headers["x-access-token"] || req.headers["authorization"];
     console.log("TOKENNNNNNNNNNN",token);
     try {
@@ -62,6 +63,27 @@ exports.getUserAmountProjects = async (req, res, next) => {
         if (projects != null) {
             res.status(200).send({
                 msg: numProjects
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).send({
+            error:error
+     })
+    }
+}
+
+exports.getUserProjects = async (req,res,next) =>{
+    const token = req.headers["x-access-token"] || req.headers["authorization"];
+    console.log("TOKENNNNNNNNNNN",token);
+    try {
+        const decoded = decodeToken(token)
+        var company = await registeredUserDao.getUserCompany(decoded.user.id)
+        var projects = await registeredUserDao.getCompanyProjects(company.id)
+        console.log("RESULTADO: " + projects)
+        if (projects != null) {
+            res.status(200).send({
+                msg: projects
             })
         }
     }

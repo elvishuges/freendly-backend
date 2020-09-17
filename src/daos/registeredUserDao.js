@@ -28,21 +28,19 @@ exports.createProject = function (idEmpresa,nome,descricao,salario,
     })
 }
 
-// exports.getProjectsByUserId = function (UserId) {
+exports.getCompanyProjects = function (companyId) {
 
-//     return new Promise(function (fulfill, reject) {
+    return new Promise(function (fulfill, reject) {
 
-//         console.log("PROJETOOOOOO",projeto);
-
-//         var sql = "insert into projetos set ?";
-//         var inserts = [projeto];
-//         sql = mysql.format(sql, inserts);
-//         con.query(sql, function (err, result) {
-//             console.log('#DAO ERRORRR#',err);
-//             fulfill(result);
-//         });
-//     })
-// }
+        var sql = "select * from projetos where id_empresa = ?";
+        var inserts = [companyId];
+        sql = mysql.format(sql, inserts);
+        con.query(sql, function (err, result) {
+            if(err) throw err
+            fulfill(result);
+        });
+    })
+}
 
 exports.getUserCompany = function (userID) {
 
