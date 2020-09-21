@@ -5,7 +5,7 @@ var auth = require('./../middleware/auth')
 const upload = require("../middleware/upload");
 //const upload = multer({dest:'new/'})
 
-router.post('/createProject',upload,controllerRegisteredUser.createProject)
+router.post('/createProject',auth,upload,controllerRegisteredUser.createProject)
 router.get('/user/company',auth,controllerRegisteredUser.getUserCompany)
 router.get('/user/amountProjects',auth,controllerRegisteredUser.getUserAmountProjects)
 router.get('/user/projects',auth,controllerRegisteredUser.getUserProjects)
