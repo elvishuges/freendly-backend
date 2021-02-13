@@ -1,6 +1,7 @@
-const path= require("path");
+const path = require("path");
 const multer= require("multer");
 const DIR = 'src/public/images/';
+
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {

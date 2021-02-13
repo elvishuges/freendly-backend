@@ -8,12 +8,12 @@ module.exports = function(req, res, next) {
   //if no token found, return response (without going to the next middelware)
   if (!token) {
      console.log("#TOKEN N ENCONTRADO#");
-     return res.status(203).send("Access denied. No token provided.");
+     return res.status(401).send("Access denied. No token provided.");
   }
   jwt.verify(token, process.env.SECRET, function(err, decoded) {
     if (err) return res.status(401).send("Access denied. No token provided.");
     console.log("DECODED",decoded);
-    // se tudo estiver ok, salva no request para uso posterior
+    //se tudo estiver ok, salva no request para uso posterior
     next();
   })
 };

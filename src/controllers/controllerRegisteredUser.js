@@ -30,6 +30,7 @@ exports.createProject = async (req, res, next) => {
 };
 
 exports.getUserCompany= async (req, res, next) => {
+    //const express = require('express')
     const token = req.headers["x-access-token"] || req.headers["authorization"];
     console.log("#TOKEN GTUSERCOMPN#",token);
     try {
@@ -84,6 +85,35 @@ exports.getUserProjects = async (req,res,next) =>{
         if (projects != null) {
             res.status(200).send({
                 msg: projects
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).send({
+            error:error
+     })
+    }
+}
+
+exports.getUserProject = async (req,res,next) =>{
+    const token = req.headers["x-access-token"] || req.headers["authorization"];
+    console.log("TOKENNNNNNNNNNN",token);
+    var idProject = req.params.idProject
+    console.log("ID PROJECT",idProject);
+
+    try {
+        const decoded = decodeToken(token)
+        var company = await registeredUserDao.getUserCompany(decoded.user.id)
+        var project = await registeredUserDao.getCompanyProject(idProject,company.id) // check if company has the project
+        console.log("RESULTADO: " + project)
+        if (project != null && project.length) {
+            res.status(200).send({
+                msg: project
+            })
+        }
+        else{
+            res.status(203).send({
+                msg: "not Found"
             })
         }
     }

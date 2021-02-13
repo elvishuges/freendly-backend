@@ -14,9 +14,9 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json())
 app.use(cors())
 //setting middleware
-app.use('/src/public/images/', express.static(__dirname + '/public/images'));
+app.use('/src/public/images', express.static(__dirname + '/public/images'));
 
-Object.values( routes ).forEach( Route => app.use(Route))
+Object.values(routes).forEach(Route => app.use(Route))
 app.use(errors());
 
-module.exports = {http};
+module.exports = { http };

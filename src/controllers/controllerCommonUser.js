@@ -16,7 +16,7 @@ exports.login = async (req, res, next) => {
         return res.status(203).json({ message: "Email ou senha incorretos" });
 
     var token = jwt.sign({ user }, process.env.SECRET, {
-        expiresIn: 60000 // expires in 10min
+        expiresIn: 60000 // expires in 60min
     });
 
     res.status(200).send({
