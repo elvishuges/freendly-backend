@@ -1,8 +1,8 @@
 require("dotenv-safe").config();
 //var jwt = require('jsonwebtoken');
-const {http} = require('../src/app');
+const { http } = require('../src/app');
 //const sockets = require('./../src/socket')
-const port = normalizaPort(process.env.PORT || '3000');
+const port = normalizaPort(process.env.PORT || 5000);
 
 // const io = require('socket.io')(http)
 
