@@ -2,7 +2,7 @@ const commonUserDao = require('../daos/commonUserDao.js');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 const path = require('path')
-require('dotenv').config({ allowEmptyValues: true })
+
 
 exports.login = async (req, res, next) => {
     var dados = req.body
