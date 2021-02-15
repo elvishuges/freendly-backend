@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./bin/server.js",
-    "start": "node ./bin/server.js"
+    "start": "set NODE_ENV=production && node ./bin/server.js"
   },
   "author": "elvishuges",
   "license": "ISC",

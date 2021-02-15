@@ -1,6 +1,9 @@
+
+
+process.env.NODE_ENV !== "production" ? require('dotenv').config() : ''
 const { http } = require('../src/app');
-require('dotenv').config();
 const port = normalizaPort(process.env.PORT || 3000);
+
 
 function normalizaPort(val) {
     const port = parseInt(val, 10);
@@ -14,7 +17,7 @@ function normalizaPort(val) {
 }
 
 http.listen(port, function () {
-    console.log('port', process.env.NODE_ENV);
+    console.log('PROJETO status', process.env.NODE_ENV);
     console.log(`app listening on port ${port}`)
 })
 
