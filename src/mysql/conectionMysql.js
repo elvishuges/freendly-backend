@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "sql10.freemysqlhosting.net",
-  user: "sql10392973",
-  password: "2jFaHp7MpT",
-  database: "sql10392973"
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_DB_NAME
 });
 
 module.exports = con;
