@@ -1,3 +1,4 @@
+require('dotenv').config()
 const commonUserDao = require('../daos/commonUserDao.js');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');

@@ -1,6 +1,6 @@
 
 
-process.env.NODE_ENV !== "production" ? require('dotenv').config() : ''
+require('dotenv').config()
 const { http } = require('../src/app');
 const port = normalizaPort(process.env.PORT || 3000);
 
