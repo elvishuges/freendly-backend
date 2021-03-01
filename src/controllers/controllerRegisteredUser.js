@@ -53,7 +53,6 @@ exports.getUserCompany = async (req, res, next) => {
 exports.getUserAmountProjects = async (req, res, next) => {
 
     const token = req.headers["x-access-token"] || req.headers["authorization"];
-    console.log("TOKENNNNNNNNNNN", token);
     try {
         const decoded = decodeToken(token)
         var company = await registeredUserDao.getUserCompany(decoded.user.id)
@@ -75,7 +74,6 @@ exports.getUserAmountProjects = async (req, res, next) => {
 
 exports.getUserProjects = async (req, res, next) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
-    console.log("TOKENNNNNNNNNNN", token);
     try {
         const decoded = decodeToken(token)
         var company = await registeredUserDao.getUserCompany(decoded.user.id)
@@ -96,7 +94,6 @@ exports.getUserProjects = async (req, res, next) => {
 
 exports.getUserProject = async (req, res, next) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
-    console.log("TOKENNNNNNNNNNN", token);
     var idProject = req.params.idProject
     console.log("ID PROJECT", idProject);
 

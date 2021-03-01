@@ -11,6 +11,7 @@ io.on('connection', function (socket) {
         socket.nick = nick;
         idsnicks[nick] = socket.id;
         io.emit('userlist', users); // emite para quem estiver escutando "userlist"
+        console.log('on project page nick user', nick);
     })
 
     socket.on('chat', function (data) { // escuta do usuario
